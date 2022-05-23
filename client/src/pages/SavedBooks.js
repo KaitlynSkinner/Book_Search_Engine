@@ -44,11 +44,12 @@ const SavedBooks = () => {
       return false;
     }
 
+    // **************** FIX
     try {
       const response = await deleteBook(bookId, token);
 
       if (!response.ok) {
-        throw new Error('something went wrong!');
+        throw new Error('Something went wrong!');
       }
 
       const updatedUser = await response.json();
