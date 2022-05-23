@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
+import { GET_ME } from '../utils/queries';
 
 import Auth from '../utils/auth';
 import { saveBook, searchGoogleBooks } from '../utils/API';
@@ -66,11 +67,19 @@ const SearchBooks = () => {
       return false;
     }
 
-    // *********** FIX
     try {
-      const { data } = await saveBook({
-        variables: {bookToSave, token},
-
+      await saveBook({
+        variables: { input: bookToSave },
+        update: cache => {
+          const { me } = cache.readQuery({ query: GET_ME });
+          cache.writeQuery({ 
+            query: GET_ME, 
+            data: { 
+              ...me, 
+              savedBooks: [...me.savedBooks, bookToSave]
+            }
+          });
+        }
       });
 
       // if book successfully saves to user's account, save book id to state
