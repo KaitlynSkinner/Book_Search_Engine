@@ -72,6 +72,9 @@ To install packages run the following command:
 ## Usage
  Once installed, type ```npm start``` to run the application.
 
+## Deployed Application
+Deplyed to Heroku - https://obscure-reaches-49667.herokuapp.com/ | https://git.heroku.com/obscure-reaches-49667.git
+
 
 ## License
 This application does not have a license. 
